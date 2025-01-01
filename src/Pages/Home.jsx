@@ -1,8 +1,7 @@
 import React, { useEffect , useState } from "react";
 import { useAuth } from "../Zustand/store";
-import {InfiniteScroll , AccountInfo , ImageComp} from "../Components/index"
+import {InfiniteScroll , AccountInfo } from "../Components/index"
 const Home = () => {
-  const [toggle , setToggle] = useState(false)
   const { user , reset } = useAuth();
   useEffect(()=>{
     return reset();
@@ -10,10 +9,9 @@ const Home = () => {
 
   return (
     <div className=" h-screen flex relative z-0">
-         <InfiniteScroll/>
-         <AccountInfo setToggle={setToggle}/>
          
-             { toggle && <ImageComp setToggle={setToggle}/>}
+         <InfiniteScroll/>
+         <AccountInfo/>
           
     </div>
   );

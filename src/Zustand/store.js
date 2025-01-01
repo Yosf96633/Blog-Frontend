@@ -32,8 +32,6 @@ export const useAuth = create((set, get) => ({
         password,
       });
       if (response.data) {
-        console.log(response.data.userData);
-        
         localStorage.setItem(`UserData` , JSON.stringify(response.data.userData))
         set({user:response.data.userData});
         return {

@@ -1,10 +1,11 @@
 import AccountInfo from "./Home/AccountInfo";
 import InfiniteScroll from "./Home/InfiniteScroll";
-import ImageComp from "./Home/ImageComp"
-
-
+import Header from "./Header";
+import Avater from "./Avater";
 export{
     AccountInfo,
     InfiniteScroll,
-    ImageComp,
+    Header,
+    Avater,
+   
 }

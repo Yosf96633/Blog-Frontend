@@ -54,7 +54,7 @@ const SignUp = () => {
               ease:"easeOut"
             }
           }}
-          className="flex flex-col space-y-6"
+          className="flex flex-col justify-center space-y-6"
         >
           <h1 className="text-3xl font-medium py-3 max-sm:text-xl self-center">
             Sign Up to Share Your{" "}
