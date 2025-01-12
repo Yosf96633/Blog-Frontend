@@ -53,8 +53,8 @@ const Data = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#232D3F] text-white">
-      <div className="p-6 rounded-lg border-[1px] border-white shadow-lg" style={{ width: '400px' }}>
+    <div className="h-screen flex justify-center bg-[#232D3F] pt-6 text-white">
+      <div className="p-6 shadow-lg" style={{ width: '400px' }}>
         <h2 className="text-xl font-bold mb-4 text-center">Edit Profile</h2>
         <Form
           form={form}

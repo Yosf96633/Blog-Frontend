@@ -4,7 +4,7 @@ import { Avater } from "./index"; // Assuming your Avatar component is being imp
 const Header = () => {
 
   return (
-    <header className="bg-[#232D3F] fixed w-screen z-50 backdrop-blur-2xl flex justify-center max-md:justify-between text-white px-6 py-3 border-b-[1px] border-white mb-2">
+    <header className="bg-[#232D3F] w-screen backdrop-blur-2xl flex justify-center max-md:justify-between text-white px-6 py-3 border-b-[1px] border-white mb-2">
       <h1 className="flex items-center text-2xl">
         <SiBloglovin />
         <span className="text-xl font-semibold">logify</span>

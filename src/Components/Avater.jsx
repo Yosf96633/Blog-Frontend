@@ -5,9 +5,9 @@ import { Avatar } from 'antd';
 const Avater = () => {
     const {user} = useAuth();
   return (
-    <div className=' flex justify-center items-center space-x-3 cursor-pointer'>
-        <Avatar size={58} src={user?.imageDetails?.imageURL}/>
-        <p className=' text-lg font-bold'>{user?.name}</p>
+    <div className=' flex justify-center items-center space-x-1 cursor-pointer'>
+        <Avatar size={40} src={user?.imageDetails?.imageURL}/>
+        <p className=' text-base '>{user?.name}</p>
     </div>
   )
 }

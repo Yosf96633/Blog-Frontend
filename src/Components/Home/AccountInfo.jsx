@@ -6,7 +6,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { PiBaby } from "react-icons/pi";
 import { motion } from "framer-motion";
 import axiosInstance from "../../Lib/axios";
-const AccountInfo = ({ setToggle }) => {
+const AccountInfo = () => {
   const { user, logout, loading, reset, deleteAccount } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [numbers, setNumbers] = useState({ followers: 0, followings: 0 });
@@ -28,6 +28,8 @@ const AccountInfo = ({ setToggle }) => {
         return;
       }
     } catch (error) {
+      console.log(error.response.data);
+      
     }
   };
   useEffect(() => {
@@ -38,7 +40,7 @@ const AccountInfo = ({ setToggle }) => {
   }, []);
 
   return (
-    <div className="w-1/4 border-l-[1px] border-white flex flex-col justify-center items-center max-md:hidden space-y-6 px-4 ">
+    <div className="w-1/4 bg-[#414d63] rounded-2xl flex flex-col justify-center items-center max-md:hidden space-y-6 px-4 ">
       <h1 className="text-2xl text-center font-semibold">Account info</h1>
       <div className="flex flex-col items-center">
         {/* Profile Image */}

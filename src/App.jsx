@@ -8,7 +8,7 @@ const App = () => {
   const location = useLocation(); // Keep track of the current location for animations
   const { user } = useAuth();
   return (
-    <div className="bg-[#232D3F] text-white relative z-20">
+    <div className="bg-[#232D3F] text-white overflow-x-hidden">
         <Header/>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
