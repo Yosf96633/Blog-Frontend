@@ -29,12 +29,11 @@ const AccountInfo = () => {
       }
     } catch (error) {
       console.log(error.response.data);
-      
     }
   };
   useEffect(() => {
     fetchNumbers();
-  } , []);
+  }, []);
   useEffect(() => {
     return reset();
   }, []);
@@ -45,17 +44,17 @@ const AccountInfo = () => {
       <div className="flex flex-col items-center">
         {/* Profile Image */}
         <div className=" size-32 cursor-pointer object-cover rounded-full overflow-hidden">
-        <motion.img
-          onClick={() => setIsModalOpen(true)} // Open the modal on click
-          whileHover={{ scale: 1.075 }}
-          transition={{
-            duration: 0.5,
-            ease: "backInOut",
-          }}
-          className="size-32 cursor-pointer object-cover rounded-full"
-          src={user.imageDetails.imageURL}
-          alt="img"
-        />
+          <motion.img
+            onClick={() => setIsModalOpen(true)} // Open the modal on click
+            whileHover={{ scale: 1.075 }}
+            transition={{
+              duration: 0.5,
+              ease: "backInOut",
+            }}
+            className="size-32 cursor-pointer object-cover rounded-full"
+            src={user.imageDetails.imageURL}
+            alt="img"
+          />
         </div>
         <p className="text-xl font-semibold">{user.name}</p>
       </div>
@@ -72,24 +71,27 @@ const AccountInfo = () => {
         <PiBaby className="text-2xl" />
         <p>{date}</p>
       </div>
-
-      <div className="flex flex-col items-center justify-center space-y-6">
+      <div className="flex flex-col space-y-4 mt-6">
         <Button
-          loading={loading}
+          type="primary"
+          icon={<RiLogoutCircleLine />}
           onClick={async () => {
             await logout();
           }}
-          icon={<RiLogoutCircleLine />}
+          danger
         >
-          Log out
+          Log Out
         </Button>
         <Button
+          type="default"
+          icon={<MdDelete />}
+          loading={loading}
           onClick={async () => {
             await deleteAccount();
           }}
-          icon={<MdDelete />}
+          danger
         >
-          Delete account
+          Delete Account
         </Button>
       </div>
 

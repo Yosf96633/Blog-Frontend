@@ -64,7 +64,7 @@ const ShowPosts = () => {
               key={post._id}
             >
               <div className=" flex space-x-4 max-sm:space-x-2 items-center">
-                <Avatar size={45} src={post.author.imageDetails.imageURL} />
+                <Avatar size={45} src={post?.author?.imageDetails?.imageURL} />
                 <div className=" flex flex-col">
                   <p className="text-lg max-sm:text-base">{post.author.name}</p>
                   <p className=" text-gray-400 text-sm max-sm:text-xs">{post.createdAt}</p>
@@ -82,7 +82,7 @@ const ShowPosts = () => {
                 <p>{post.content}</p>
                 <img
                   className=" w-full h-[14rem] sm:h-[32rem] object-cover"
-                  src={post.imageDetails.imageURL}
+                  src={post?.imageDetails?.imageURL}
                   alt="img"
                 />
               </div>
@@ -94,7 +94,7 @@ const ShowPosts = () => {
           ))}
         </div>
       ) : (
-        <div>No posts available</div>
+        <div className=" text-center pt-8">No posts available</div>
       )}
     </div>
   );

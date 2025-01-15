@@ -51,6 +51,7 @@ export const useAuth = create((set, get) => ({
    }
   },
   logout : async () => {
+    set({loading:true})
     try {
        const response = await axiosInstance.post(`/auth/logout`);
        if(response.data.success){
@@ -63,8 +64,12 @@ export const useAuth = create((set, get) => ({
       message.error(error.response.data.message)
         return;
     }
+    finally{
+      set({loading:false});
+     }
   },
   deleteAccount : async () => {
+    set({loading:true})
     try {
       const response = await axiosInstance.delete(`/auth/delete`);
       if(response.data.success){
@@ -77,6 +82,9 @@ export const useAuth = create((set, get) => ({
       message.error(error.response.data.message)
       return;
     }
+    finally{
+      set({loading:false});
+     }
   },
   reset : () =>{
       set({loading: false});

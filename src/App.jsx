@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { useAuth } from "./Zustand/store";
 import { Header } from "./Components/index";
 const App = () => {
-  const location = useLocation(); // Keep track of the current location for animations
+  const location = useLocation(); 
   const { user } = useAuth();
   return (
     <div className="bg-[#232D3F] text-white overflow-x-hidden">
@@ -21,8 +21,8 @@ const App = () => {
           <Route path="/signup/:id" element={user ? <Navigate to={"/"}/> :<Data />} />
         </Routes>
       </AnimatePresence>
+      
     </div>
   );
 };
-
 export default App;
