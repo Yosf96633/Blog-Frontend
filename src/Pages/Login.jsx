@@ -50,7 +50,7 @@ const Login = () => {
               ease:"easeOut"
             }
           }}
-          className="flex flex-col space-y-6 order-2 justify-center"
+          className="flex flex-col space-y-6 order-2 justify-center max-sm:pb-12"
         >
           <h1 className="text-xl font-medium py-3 max-sm:text-xl self-center">
             Log In to Share Your{" "}

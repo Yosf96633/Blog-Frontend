@@ -28,7 +28,6 @@ const AccountInfo = () => {
         return;
       }
     } catch (error) {
-      console.log(error.response.data);
     }
   };
   useEffect(() => {
