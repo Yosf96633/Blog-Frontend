@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../Zustand/store";
-import { Button, message, Modal } from "antd";
+import { Button } from "antd";
 import { MdDelete, MdPerson } from "react-icons/md";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { PiBaby } from "react-icons/pi";
 import { motion } from "framer-motion";
 import axiosInstance from "../../Lib/axios";
+import { useNavigate } from "react-router";
 const AccountInfo = () => {
   const { user, logout, loading, reset, deleteAccount } = useAuth();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [numbers, setNumbers] = useState({ followers: 0, followings: 0 });
   const dateObj = new Date(user?.DOB);
   const date = dateObj.toLocaleDateString("en-US", {
@@ -17,9 +17,10 @@ const AccountInfo = () => {
     month: "long",
     day: "numeric",
   });
+  const navigate = useNavigate();
   const fetchNumbers = async () => {
     try {
-      const response = await axiosInstance.get(`/check-numbers`);
+      const response = await axiosInstance.get(`/check-numbers/${user.id}`);
       if (response.data.success) {
         setNumbers({
           followers: response.data.numbers.followers,
@@ -42,9 +43,10 @@ const AccountInfo = () => {
       <h1 className="text-2xl text-center font-semibold">Account info</h1>
       <div className="flex flex-col items-center">
         {/* Profile Image */}
-        <div className=" size-32 cursor-pointer object-cover rounded-full overflow-hidden">
+        <div onClick={()=>{
+         navigate(`profile/${user.id}`)
+        }} className=" size-32 cursor-pointer object-cover rounded-full overflow-hidden">
           <motion.img
-            onClick={() => setIsModalOpen(true)} // Open the modal on click
             whileHover={{ scale: 1.075 }}
             transition={{
               duration: 0.5,
@@ -93,34 +95,6 @@ const AccountInfo = () => {
           Delete Account
         </Button>
       </div>
-
-      {/* Full-Screen Modal */}
-      <Modal
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)} // Close modal on cancel
-        footer={null} // Remove footer
-        width="100vw"
-        style={{ top: 0, padding: 0 }}
-        styles={{
-          height: "100vh",
-          margin: 0,
-          padding: 0,
-          backgroundColor: "black",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src={user.imageDetails.imageURL}
-          alt="High-Resolution"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            objectFit: "contain",
-          }}
-        />
-      </Modal>
     </div>
   );
 };

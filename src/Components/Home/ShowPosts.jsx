@@ -41,7 +41,7 @@ const ShowPosts = () => {
       setLoading(false);
     }
   };
-console.log(posts);
+
 
   useEffect(() => {
     fetchData();

@@ -3,8 +3,13 @@ import { useParams } from "react-router";
 import axiosInstance from "../Lib/axios";
 import { Spin, Button, Tag, Avatar } from "antd";
 import { format } from "date-fns";
+import { useAuth } from "../Zustand/store";
+import { RiLogoutCircleLine } from "react-icons/ri";
+import { MdDelete, MdPerson } from "react-icons/md";
 const Profile = () => {
+  const { user, logout, deleteAccount, loading } = useAuth();
   const [loading1, setloading1] = useState(true);
+  const [numbers, setNumbers] = useState({ followers: 0, followings: 0 });
   const [loading2, setloading2] = useState(true);
   const [data, setData] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -16,17 +21,14 @@ const Profile = () => {
     month: "long",
     day: "numeric",
   });
-  console.log( loading1 , loading2);
-  
+  const [follow, setFollow] = useState(null);
   const fetch_data = async () => {
     try {
       const response = await axiosInstance.get(`/auth/user_profile/${id}`);
       if (response.data.success) {
-        console.log(response.data);
         setData(response.data.data);
       }
     } catch (error) {
-      console.log(error.response);
     } finally {
       setloading1(false);
     }
@@ -60,14 +62,40 @@ const Profile = () => {
       setloading2(false);
     }
   };
+  const fetchNumbers = async () => {
+    try {
+      const response = await axiosInstance.get(`/check-numbers/${id}`);
+      if (response.data.success) {
+        setNumbers({
+          followers: response.data.numbers.followers,
+          followings: response.data.numbers.followings,
+        });
+        return;
+      }
+    } catch (error) {}
+  };
+  const check_following = async () => {
+    try {
+      const response = await axiosInstance.get(`/check-following/${id}`);
+      console.log(response.data);
+      setFollow(response.data.flag)
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+  useEffect(() => {
+    fetchNumbers();
+    check_following();
+  }, []);
   useEffect(() => {
     fetch_data();
     fetch_posts();
-    return ()=>{
-        setloading1(true)
-        setloading2(true)
-    }
-  } , [id]);
+    return () => {
+      setloading1(true);
+      setloading2(true);
+    };
+  }, [id]);
+
   return (
     <div className=" min-h-screen bg-[#232D3F] px-4 text-white py-6">
       {loading1 ? (
@@ -85,28 +113,63 @@ const Profile = () => {
             />
             <h1 className=" text-2xl font-medium"> {data.name}</h1>
           </div>
-          <div className=" space-y-3 py-3 flex justify-center items-center flex-col">
+          <div className=" space-y-1 max-sm:space-y-1 py-3 flex justify-center items-center flex-col">
             <p>About {data.name}:</p>
             <p>Date of birth: {date}</p>
             <p>Bio: {data.bio}</p>
           </div>
-          <div className=" flex justify-center">
-            <Button
-              onClick={async () => {
-                try {
-                  const response = await axiosInstance.post(
-                    `follow-unfollow/${data._id}`
-                  );
-                  console.log(response);
-                } catch (error) {}
-              }}
-            >
-              Follow
-            </Button>
+          <div className="flex justify-center items-center pb-3 space-x-3">
+            <p>Followers: {numbers.followers}</p>
+            <span className="border-[1px] border-white"></span>
+            <p>Followings: {numbers.followings}</p>
           </div>
+          {!(id === user.id) && (
+            <div className=" flex justify-center">
+              <Button
+                onClick={async () => {
+                  try {
+                    const response = await axiosInstance.post(
+                      `follow-unfollow/${data._id}`
+                    );
+                    check_following();
+                  } catch (error) {}
+                }}
+              >
+                { follow ? "Unfollow" : "Follow"}
+              </Button>
+            </div>
+          )}
+          {id === user.id && (
+            <div className="space-y-4 my-3 flex flex-col justify-center items-center">
+              <Button
+                type="primary"
+                icon={<RiLogoutCircleLine />}
+                onClick={async () => {
+                  await logout();
+                }}
+                danger
+              >
+                Log Out
+              </Button>
+              <Button
+                type="default"
+                icon={<MdDelete />}
+                loading={loading}
+                onClick={async () => {
+                  await deleteAccount();
+                }}
+                danger
+              >
+                Delete Account
+              </Button>
+            </div>
+          )}
           <div className=" space-y-3 py-4">
             {loading2 ? (
-              <Spin />
+              <div className=" flex justify-center items-center py-4">
+                {" "}
+                <Spin />
+              </div>
             ) : (
               <div>
                 {posts.length === 0 ? (

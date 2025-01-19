@@ -13,7 +13,7 @@ const Search = () => {
       const response = await axiosInstance.get(`/get-user?name=${name}`);
       if (response.data.success) {
         setFriends(response.data.data);
-        console.log(response.data.data);
+    
       }
     } catch (error) {
     } finally {
